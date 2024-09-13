@@ -20,7 +20,7 @@ public class PlayerCharacter : MonoBehaviour
     {
         _controller.Move(new Vector3(speed * _direction.x, 0, speed * _direction.y));
         _animator.SetFloat("WalkSpeed", GetSpeed());
-        Vector3 direction = new Vector3(_direction.x, 5f, _direction.y);
+        Vector3 direction = new Vector3(_direction.x, 9f, _direction.y);
         if(_direction.x != 0 || _direction.y != 0)
         {
             _controller.transform.rotation = Quaternion.LookRotation(direction);
@@ -31,6 +31,13 @@ public class PlayerCharacter : MonoBehaviour
     private void OnMove(InputValue inputValue)
     {
         _direction = inputValue.Get<Vector2>();
+    }
+
+    private void OnFire()
+    {
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Walking.Cooldown") 
+            || _animator.GetCurrentAnimatorStateInfo(0).IsName("Walking.Shoot")) return;
+        _animator.SetBool("Attacking", true);
     }
 
     public float GetSpeed()
