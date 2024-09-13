@@ -6,9 +6,13 @@ using UnityEngine.InputSystem;
 public class PlayerCharacter : MonoBehaviour
 {
     private Vector2 _direction;
+    private Vector3 _direction3;
     [SerializeField] private float speed = 1f;
     private CharacterController _controller;
     private Animator _animator;
+    [SerializeField] private GameObject _bullet;
+    [SerializeField] private Vector3 _bulletOffset = Vector3.zero;
+    
 
     private void Start()
     {
@@ -20,10 +24,10 @@ public class PlayerCharacter : MonoBehaviour
     {
         _controller.Move(new Vector3(speed * _direction.x, 0, speed * _direction.y));
         _animator.SetFloat("WalkSpeed", GetSpeed());
-        Vector3 direction = new Vector3(_direction.x, 9f, _direction.y);
         if(_direction.x != 0 || _direction.y != 0)
         {
-            _controller.transform.rotation = Quaternion.LookRotation(direction);
+            _direction3 = new Vector3(_direction.x, 9f, _direction.y);
+            _controller.transform.rotation = Quaternion.LookRotation(_direction3);
         }
          
     }
@@ -35,9 +39,18 @@ public class PlayerCharacter : MonoBehaviour
 
     private void OnFire()
     {
-        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Walking.Cooldown") 
-            || _animator.GetCurrentAnimatorStateInfo(0).IsName("Walking.Shoot")) return;
+        bool onCooldown = _animator.GetCurrentAnimatorStateInfo(0).IsName("Walking.Cooldown");
+        bool stillShooting = _animator.GetCurrentAnimatorStateInfo(0).IsName("Walking.Shoot");
+        if (onCooldown || stillShooting) return;
         _animator.SetBool("Attacking", true);
+        SpawnBullet();
+    }
+
+
+    private void SpawnBullet()
+    {
+        Quaternion direction = Quaternion.LookRotation(new Vector3(_direction.x, 0f, _direction.y));
+        Instantiate(_bullet, transform.position + direction * _bulletOffset, direction);
     }
 
     public float GetSpeed()
