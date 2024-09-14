@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 9102060484119963812}
   - component: {fileID: 414014777901909902}
   - component: {fileID: 8938483629794976321}
+  - component: {fileID: 8628320818673719287}
   m_Layer: 0
   m_Name: PlayerCharacterNew
   m_TagString: Untagged
@@ -231,6 +232,7 @@ MonoBehaviour:
   speed: 0.5
   _bullet: {fileID: 5902308905929608736, guid: be13effb411de66419dbe6095376809f, type: 3}
   _bulletOffset: {x: 0, y: 1, z: 3}
+  flashMaterial: {fileID: 2100000, guid: 4c78e288e0385494cb14da5169adc8de, type: 2}
 --- !u!114 &414014777901909902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +289,19 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8628320818673719287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2618892281782677687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ffc64e2835630144964fcfad1b60de2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHitPoints: 100
 --- !u!1 &3045463526319955985
 GameObject:
   m_ObjectHideFlags: 0

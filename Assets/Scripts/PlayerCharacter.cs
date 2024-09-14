@@ -12,14 +12,22 @@ public class PlayerCharacter : MonoBehaviour, Entity
     [SerializeField] private Bullet _bullet;
     [SerializeField] private Vector3 _bulletOffset = Vector3.zero;
     private bool _lockedRotation = false;
-    LayerMask _playerLayer;
-    
+    [SerializeField] public Material flashMaterial;
+    private Material originalMaterial;
+    private Renderer _renderer;
+
 
     private void Start()
     {
         _controller = GetComponent<CharacterController>();
         _animator = GetComponentInChildren<Animator>();
         if (_controller == null) throw new MissingComponentException("Missing main component in PlayerCharacter!");
+    }
+
+    private void Awake()
+    {
+        _renderer = GetComponentInChildren<Renderer>();
+        originalMaterial = _renderer.material;
     }
     private void FixedUpdate()
     {
@@ -30,11 +38,11 @@ public class PlayerCharacter : MonoBehaviour, Entity
             _lockedRotation = false;
             _animator.SetBool("DoneShooting", false);
         }
-        if(!_lockedRotation && _direction.magnitude > 0)
+        if(!_lockedRotation)
         {// only set rotation on direction change
             Vector3 mousPos = GetRelativeMousePosition();
             Vector3 direction3D = (mousPos - transform.position).normalized;
-            Vector3 lookDireciton = Vector3.Scale(direction3D, new Vector3(1, 0, 1));// new Vector3(_direction.x, 0f, _direction.y); 
+            Vector3 lookDireciton = Vector3.Scale(direction3D, new Vector3(1, 0, 1));// new Vector3(_direction.x, 0f, _direction.y);
             _controller.transform.rotation = Quaternion.LookRotation(lookDireciton);
         }
          
@@ -81,14 +89,29 @@ public class PlayerCharacter : MonoBehaviour, Entity
     {
         return transform.position;
     }
+    public void TriggerFlash(float seconds)
+    {
+        StartCoroutine(Flash(seconds));
+    }
 
+    IEnumerator Flash(float seconds)
+    {
+        _renderer.material = flashMaterial;
+        yield return new WaitForSeconds(seconds);
+        _renderer.material = originalMaterial;
+    }
     public void Die()
     {
-        throw new System.NotImplementedException();
+        GameOver();
+    }
+    public void GameOver()
+    {
+        // TODO: game over
+        Debug.Log("Player died!");
     }
 
     public void TakeDamage()
     {
-        throw new System.NotImplementedException();
+        TriggerFlash(0.3f);
     }
 }
