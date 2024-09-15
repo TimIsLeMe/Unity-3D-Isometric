@@ -12,14 +12,14 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float offset = 3f;
     private Vector3[] offsetDict = new Vector3[]
     {
-        new Vector3(1, -2, 0),
-        new Vector3(0, -2, 0),
-        new Vector3(1, 0, 0),
-        new Vector3(-1, -2, 0),
-        new Vector3(1, -1, 0),
-        new Vector3(-1, -1, 0),
-        new Vector3(1, 2, 0),
-        new Vector3(2, -2, 0),
+        new Vector3(0.75f, 0, 0),
+        new Vector3(-0.75f, 0, 0),
+        new Vector3(1.25f, 0.25f, 0),
+        new Vector3(-1.25f, 0.25f, 0),
+        new Vector3(0.75f, 0.5f, 0),
+        new Vector3(-0.75f, 0.5f, 0),
+        new Vector3(-1.25f, 0.25f, 0),
+        new Vector3(1.25f, 0.25f, 0)
     };
     private int _collisionMaxCount = 1;
     private bool _isChild = false;
@@ -80,8 +80,8 @@ public class Bullet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rigidbody.velocity = transform.forward * speed + initialPlayerVelocity; // player velocity is (gradually less) applied for 10 ticks
-        if (initialPlayerVelocity.magnitude > 0.1f) initialPlayerVelocity -= initialPlayerVelocity / 10;
+        _rigidbody.velocity = transform.forward * speed; // + initialPlayerVelocity; // player velocity is (gradually less) applied for 10 ticks
+        // if (initialPlayerVelocity.magnitude > 0.1f) initialPlayerVelocity -= initialPlayerVelocity / 10;
     }
 
     private void OnTriggerEnter(Collider other)

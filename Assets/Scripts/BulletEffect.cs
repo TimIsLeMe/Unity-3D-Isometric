@@ -20,7 +20,6 @@ public class BulletEffect
 
     public static BulletEffect MergeEffects(BulletEffect be1, BulletEffect be2)
     {
-        Debug.Log("NEW EFFECTS: " + be1.ToString() + "; ; ; " + be2.ToString());
         BulletEffect be = new BulletEffect();
         be.Scale = be1.Scale + be2.Scale - new Vector3(1, 1, 1);
         be.DamageModifier = be1.DamageModifier + be2.DamageModifier - 1f;

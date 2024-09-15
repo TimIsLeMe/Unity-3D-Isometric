@@ -105,8 +105,7 @@ public class PlayerCharacter : MonoBehaviour, Entity
     private void SpawnBullet()
     {
         Quaternion direction = Quaternion.LookRotation(transform.forward);
-        // _currentBulletEffect.BulletCount = 1;
-        // _currentBulletEffect.CollisionMaxCount = 2;
+        _currentBulletEffect.AdditionalBulletCount = 1;
         Bullet bullet = Instantiate(_bullet, transform.position + direction * _bulletOffset, direction);
         bullet.SetBulletEffect(_currentBulletEffect);
         bullet.InitEffects(gameObject);

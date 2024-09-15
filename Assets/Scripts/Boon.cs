@@ -6,10 +6,9 @@ public class Boon
 {
     private static Boon[] boons = new Boon[]
     {
-        new Boon("Size Increase", new BulletEffect(scale: new Vector3(1.5f, 1.5f, 1.5f))),
-        new Boon("Damage Increase", new BulletEffect(damageModifier: 1.25f)),
+        new Boon("Damage Increase", new BulletEffect(damageModifier: 2f)),
         new Boon("Penetration", new BulletEffect(additionalCollisionMaxCount: 1)),
-        new Boon("Speed Increase", new BulletEffect(speedModifier: 1.25f)),
+        new Boon("Speed and Size Increase", new BulletEffect(speedModifier: 1.25f, scale: new Vector3(1.25f, 1.25f, 1.25f))),
         new Boon("Projectile Count Increase", new BulletEffect(additionalBulletCount: 1)),
     };
 
