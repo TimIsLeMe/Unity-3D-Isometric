@@ -5,6 +5,8 @@ using UnityEngine;
 public class Creature : MonoBehaviour
 {
     [SerializeField] private float maxHitPoints = 100f;
+    [SerializeField] private float expirienceDrop = 5f;
+    public float ExpirienceDrop { get { return expirienceDrop; } }
     private Entity _entity;
     private float _hitPoints;
     // Start is called before the first frame update
@@ -34,4 +36,9 @@ public class Creature : MonoBehaviour
         if(_entity != null) _entity.TakeDamage();
     }
     
+    public bool WillDie(float damage)
+    {
+        return _hitPoints - damage <= 0;
+    }
+
 }
