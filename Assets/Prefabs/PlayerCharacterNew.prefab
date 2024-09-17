@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 414014777901909902}
   - component: {fileID: 8938483629794976321}
   - component: {fileID: 8628320818673719287}
+  - component: {fileID: 3769343221540405510}
   m_Layer: 0
   m_Name: PlayerCharacterNew
   m_TagString: Untagged
@@ -304,6 +305,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHitPoints: 100
   expirienceDrop: 5
+--- !u!136 &3769343221540405510
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2618892281782677687}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Height: 5
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.39, z: 0.21}
 --- !u!1 &3045463526319955985
 GameObject:
   m_ObjectHideFlags: 0

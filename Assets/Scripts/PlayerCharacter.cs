@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class PlayerCharacter : MonoBehaviour, Entity
 {
     private Vector2 _direction;
-    [SerializeField] private float speed = 1f;
+    [SerializeField] private float speed = 5f;
     private CharacterController _controller;
     private Animator _animator;
     [SerializeField] private Bullet _bullet;
@@ -24,6 +24,13 @@ public class PlayerCharacter : MonoBehaviour, Entity
     public float ExpirienceNeeded { get { return expirienceNeeded; } set { expirienceNeeded = value; } } // for UI
     private float _experience = 0;
     public float Experience { get { return _experience; } set { _experience = value; } } // for UI
+    
+    
+    private Vector3 _velocity; // Store the current velocity including gravity
+    private float _gravity = -15f; // Gravity value, adjust as needed
+    private float _groundCheckDistance = 0.6f;
+    
+    
     private void Start()
     {
         _currentBulletEffect = new BulletEffect();
@@ -61,20 +68,46 @@ public class PlayerCharacter : MonoBehaviour, Entity
 
     public void HandleMovement()
     {
-        _controller.Move(new Vector3(speed * _direction.x, 0f, speed * _direction.y));
-        _animator.SetFloat("WalkSpeed", GetSpeed());
-        if (_lockedRotation && _animator.GetBool("DoneShooting"))
-        {
-            _lockedRotation = false;
-            _animator.SetBool("DoneShooting", false);
-        }
-        if (!_lockedRotation)
-        {// only set rotation on direction change
-            Vector3 mousPos = GetRelativeMousePosition();
-            Vector3 direction3D = (mousPos - transform.position).normalized;
-            Vector3 lookDireciton = Vector3.Scale(direction3D, new Vector3(1, 0, 1));// new Vector3(_direction.x, 0f, _direction.y);
-            _controller.transform.rotation = Quaternion.LookRotation(lookDireciton);
-        }
+
+            bool isGrounded = Physics.CheckSphere(transform.position + Vector3.down * _groundCheckDistance, _groundCheckDistance, LayerMask.GetMask("Ground"));
+
+            
+            if (isGrounded)
+            {
+                _velocity.y = 0;
+                Debug.Log("Grounded");
+            }
+            else
+            {
+                _velocity.y += _gravity * Time.deltaTime;
+                Debug.Log("notGrounded");
+            }
+            
+            _controller.Move(new Vector3(speed * _direction.x, _velocity.y, speed * _direction.y) * Time.deltaTime);
+            _animator.SetFloat("WalkSpeed", GetSpeed());
+
+            if (_lockedRotation && _animator.GetBool("DoneShooting"))
+            {
+                _lockedRotation = false;
+                _animator.SetBool("DoneShooting", false);
+            }
+
+            if (!_lockedRotation)
+            {
+                Vector3 mousPos = GetRelativeMousePosition();
+                Vector3 direction3D = (mousPos - transform.position).normalized;
+                Vector3 lookDirection = Vector3.Scale(direction3D, new Vector3(1, 0, 1)); // Use X and Z for rotation
+                _controller.transform.rotation = Quaternion.LookRotation(lookDirection);
+            }
+    }
+    
+    private void OnDrawGizmos()
+    {
+        // Set the color for the Gizmos
+        Gizmos.color = Color.red;
+
+        // Draw the ground check sphere
+        Gizmos.DrawSphere(transform.position + Vector3.down * _groundCheckDistance, _groundCheckDistance);
     }
 
     public Vector3 GetRelativeMousePosition()
