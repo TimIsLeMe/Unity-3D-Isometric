@@ -27,7 +27,7 @@ public class PlayerCharacter : MonoBehaviour, Entity
     
     
     private Vector3 _velocity; // Store the current velocity including gravity
-    private float _gravity = -15f; // Gravity value, adjust as needed
+    [SerializeField] private float _gravity = -15f; // Gravity value, adjust as needed
     private float _groundCheckDistance = 0.6f;
     
     
