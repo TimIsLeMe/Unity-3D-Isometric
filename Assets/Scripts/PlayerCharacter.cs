@@ -75,12 +75,10 @@ public class PlayerCharacter : MonoBehaviour, Entity
             if (isGrounded)
             {
                 _velocity.y = 0;
-                Debug.Log("Grounded");
             }
             else
             {
                 _velocity.y += _gravity * Time.deltaTime;
-                Debug.Log("notGrounded");
             }
             
             _controller.Move(new Vector3(speed * _direction.x, _velocity.y, speed * _direction.y) * Time.deltaTime);

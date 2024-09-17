@@ -31,10 +31,10 @@ public class EnemyManager : MonoBehaviour
         for(int i = 0; i < enemies.Length; i++)
         {
             int max = Random.Range(1 + bonus, 3 + bonus);
-            Debug.Log(max);
+            max = 1;
             for(int j = 0; j < max; j++)
             {
-                Instantiate(enemies[i], new Vector3(j * 3, 1, j * 3), Quaternion.identity);
+                Instantiate(enemies[i], transform.position + new Vector3(j, 1, j), Quaternion.identity);
             }
         }
     }
