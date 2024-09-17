@@ -283,7 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0869b4d01301b40b936ca6614a0858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.46
+  speed: 14
   damage: 20
   flashMaterial: {fileID: 2100000, guid: 4c78e288e0385494cb14da5169adc8de, type: 2}
 --- !u!114 &7330513687204871534

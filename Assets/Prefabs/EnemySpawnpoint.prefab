@@ -45,5 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 8467145681380576481, guid: dbcc7e197bc701444bb74d019e58ebe1, type: 3}
+  - {fileID: 5049775640166372609, guid: 1ba626df8ab0d85409e69e933a06f5ce, type: 3}
   difficultyInterval: 20
+  timeToSpawn: 10
+  spawnCountdown: 0

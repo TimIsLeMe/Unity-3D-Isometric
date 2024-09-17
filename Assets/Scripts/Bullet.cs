@@ -7,9 +7,11 @@ public class Bullet : MonoBehaviour
 {
     private Rigidbody _rigidbody;
     [SerializeField] private float timeToLive = 5f;
-    [SerializeField] private float speed = 10f;
-    [SerializeField] private float damage = 50f;
+    [SerializeField] private float baseSpeed = 10f;
+    [SerializeField] private float baseDamage = 50f;
     [SerializeField] private float offset = 3f;
+    private float _speed;
+    private float _damage;
     private Vector3[] offsetDict = new Vector3[]
     {
         new Vector3(0.75f, 0, 0),
@@ -41,11 +43,13 @@ public class Bullet : MonoBehaviour
     {
         _parent = parent;
         _playerParent = _parent.GetComponent<PlayerCharacter>();
+        _speed = baseSpeed;
+        _damage = baseDamage;
         if (_effect != null)
         {
             transform.localScale = _effect.Scale;
-            speed *= _effect.SpeeModifier;
-            damage *= _effect.DamageModifier;
+            _speed = baseSpeed * _effect.SpeeModifier;
+            _damage = baseDamage * _effect.DamageModifier;
             _collisionMaxCount += _effect.AdditionalCollisionMaxCount;
             if (!_isChild)
             {
@@ -80,7 +84,7 @@ public class Bullet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rigidbody.velocity = transform.forward * speed; // + initialPlayerVelocity; // player velocity is (gradually less) applied for 10 ticks
+        _rigidbody.velocity = transform.forward * _speed; // + initialPlayerVelocity; // player velocity is (gradually less) applied for 10 ticks
         // if (initialPlayerVelocity.magnitude > 0.1f) initialPlayerVelocity -= initialPlayerVelocity / 10;
     }
 
@@ -89,13 +93,20 @@ public class Bullet : MonoBehaviour
         Creature creature = other.gameObject.GetComponent<Creature>();
         if (creature != null && creature.GetComponent<PlayerCharacter>() == null)
         {
-            if (_playerParent != null && creature.WillDie(damage)) _playerParent.Experience += creature.ExpirienceDrop; // xp gain
-            creature.ApplyDamage(damage);
+            if (_playerParent != null && creature.WillDie(_damage)) _playerParent.Experience += creature.ExpirienceDrop; // xp gain
+            Debug.Log("damage: " + _damage);
+            Debug.Log(baseDamage + "; " + _effect.DamageModifier);
+            creature.ApplyDamage(_damage);
             if (--_collisionMaxCount <= 0)
             {
                 Destroy(gameObject);
             }
-        }
+        } else if (other.gameObject.GetComponent<Creature>() != null)
+        {
 
+        } else
+        {
+            Destroy(gameObject);
+        }
     }
 }

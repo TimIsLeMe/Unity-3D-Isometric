@@ -20,6 +20,10 @@ public class EnemyCharacter : MonoBehaviour, Entity
     private Material originalMaterial;
     private Renderer _renderer;
 
+    private Vector3 _velocity; // Store the current velocity including gravity
+    private float _gravity = -15f; // Gravity value, adjust as needed
+    private float _groundCheckDistance = 0.6f;
+
     private void Start()
     {
         _player = FindObjectOfType<PlayerCharacter>();
@@ -35,14 +39,24 @@ public class EnemyCharacter : MonoBehaviour, Entity
     }
     private void FixedUpdate()
     {
+        bool isGrounded = Physics.CheckSphere(transform.position + Vector3.down * _groundCheckDistance, _groundCheckDistance, LayerMask.GetMask("Ground"));
+
+        if (isGrounded)
+        {
+            _velocity.y = 0;
+        }
+        else
+        {
+            _velocity.y += _gravity * Time.deltaTime;
+        }
         _direction = (_player.GetLocation() - transform.position).normalized;
-        _controller.Move(new Vector3(speed * _direction.x, 0f, speed * _direction.z));
-        _animator.SetFloat("WalkSpeed", GetSpeed());
-        if(_direction.magnitude > 0)
+        _controller.Move(new Vector3(speed * _direction.x, _velocity.y, speed * _direction.z) * Time.deltaTime);
+        if (_direction.magnitude > 0)
         {// only set rotation on direction change
-            Vector3 direction3 = new Vector3(_direction.x, 0f, _direction.z); 
+            Vector3 direction3 = new Vector3(_direction.x, 0f, _direction.z);
             _controller.transform.rotation = Quaternion.LookRotation(direction3);
         }
+        _animator.SetFloat("WalkSpeed", GetSpeed());
     }
 
     public float GetSpeed()

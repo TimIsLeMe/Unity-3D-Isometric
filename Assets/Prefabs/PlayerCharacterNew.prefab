@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c024e13acd82e954888717100dc935c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
+  speed: 15
   _bullet: {fileID: 5902308905929608736, guid: be13effb411de66419dbe6095376809f, type: 3}
   _bulletOffset: {x: 0, y: 1, z: 2}
   flashMaterial: {fileID: 2100000, guid: 4c78e288e0385494cb14da5169adc8de, type: 2}
