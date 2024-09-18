@@ -29,6 +29,10 @@ public class PlayerCharacter : MonoBehaviour, Entity
     private Vector3 _velocity; // Store the current velocity including gravity
     [SerializeField] private float _gravity = -15f; // Gravity value, adjust as needed
     private float _groundCheckDistance = 0.6f;
+    private bool _isInvulnerable;
+    private float _invulnerabilityTimer;
+    public Material invulnerabilityMaterial; 
+    
     
     
     private void Start()
@@ -49,6 +53,22 @@ public class PlayerCharacter : MonoBehaviour, Entity
         HandleMovement();
         CheckExpirience();
     }
+    
+    private void Update()
+    {
+        if (_isInvulnerable)
+        {
+            Debug.Log("INVULNERABLE");
+            _renderer.material = invulnerabilityMaterial;
+            _invulnerabilityTimer -= Time.deltaTime;
+            if (_invulnerabilityTimer <= 0f)
+            {
+                _isInvulnerable = false;
+                _renderer.material = originalMaterial;
+
+            }
+        }
+    }
 
     private void CheckExpirience()
     {
@@ -58,6 +78,14 @@ public class PlayerCharacter : MonoBehaviour, Entity
             _xpLevel++;
             GetBoon();
         }
+    }
+
+    public void GrantInvulnerability(float duration)
+    {
+        _isInvulnerable = true;
+        _invulnerabilityTimer = duration;
+        
+        Debug.Log("invulnerabilty granted for " + duration +" seconds");
     }
 
     public void GetBoon()

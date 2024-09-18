@@ -6,4 +6,5 @@ public interface Entity
 {
     public void Die();
     public void TakeDamage();
+    
 }
