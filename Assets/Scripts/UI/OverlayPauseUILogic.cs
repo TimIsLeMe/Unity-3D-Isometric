@@ -5,18 +5,20 @@ using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class OverlayUILogic : MonoBehaviour
+public class OverlayPauseUILogic : MonoBehaviour
 {
     private const string MainMenuButtonName = "MainMenu";
-    private const string PauseButtonName = "Pause";
+    private const string UnpauseButtonName = "Unpause";
     
         
     private UIDocument _overlayDocument;
     
-    public event EventHandler PauseButtonPressed;
-    protected virtual void OnPauseButtonPressed()
+    public event EventHandler UnpauseButtonPressed;
+    protected virtual void OnUnpauseButtonPressed()
     {
-        PauseButtonPressed?.Invoke(this, EventArgs.Empty);
+        UnpauseButtonPressed?.Invoke(this, EventArgs.Empty);
+        Debug.Log("OnUnpauseButtonPressed OverlayPauseUILogic");
+
     }
 
     private void OnEnable()
@@ -34,10 +36,10 @@ public class OverlayUILogic : MonoBehaviour
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         };
 
-        _overlayDocument.rootVisualElement.Q<Button>(PauseButtonName).clicked += () =>
+        _overlayDocument.rootVisualElement.Q<Button>(UnpauseButtonName).clicked += () =>
         {
-            Debug.Log("Pause button clicked!");
-            OnPauseButtonPressed();
+            Debug.Log("Unpause button clicked!");
+            OnUnpauseButtonPressed();
         };
     }
 }

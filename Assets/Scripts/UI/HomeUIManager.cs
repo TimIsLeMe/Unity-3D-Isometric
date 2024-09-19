@@ -12,20 +12,5 @@ public class HomeUIManager : MonoBehaviour
     {
         _mainMenuPanel = Instantiate(mainMenuPanelPrefab, transform);
     }
-
-    private void Start()
-    {
-
-
-    }
-
-    private void OnEditCartButtonPressed(object sender, EventArgs e)
-    {
-        _mainMenuPanel.gameObject.SetActive(false);
-    }
-
-    private void OnLeaveEditorMenu(object sender, EventArgs e)
-    {
-        _mainMenuPanel.gameObject.SetActive(true);
-    }
+    
 }

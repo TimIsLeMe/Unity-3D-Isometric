@@ -34,6 +34,7 @@ public class MainMenuUILogic : MonoBehaviour
             Debug.Log("Start Button Pressed");
             int sceneNr = _mainMenuUIDocument.rootVisualElement.Q<DropdownField>(LevelSelectorName).index + 1;
             UnityEngine.SceneManagement.SceneManager.LoadScene(sceneNr);
+            Time.timeScale = 1f;
         };
 
         var slider = _mainMenuUIDocument.rootVisualElement.Q<Slider>(StartingRoundSliderName);
