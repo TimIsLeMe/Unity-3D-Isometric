@@ -1,0 +1,20 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Label tabindex="-1" text="Monsters &amp; Mages" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" style="align-self: center; font-size: 32px; height: 84px; -unity-font: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&amp;guid=c077112a4caf46246a429238ea54b190&amp;type=3#NotInter-Regular&quot;); -unity-font-style: bold; align-items: center; justify-content: flex-start; -unity-text-align: middle-center; -unity-text-outline-width: 1.5px; color: rgb(255, 255, 255); -unity-text-outline-color: rgb(0, 0, 0);" />
+    <ui:VisualElement name="Center" style="flex-grow: 1; flex-direction: row; justify-content: space-around; align-self: center;">
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-items: flex-start;" />
+        <ui:VisualElement name="Content" style="flex-grow: 1; height: 79px;">
+            <ui:Button text="Start" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StartButton" />
+            <ui:Button text="Quit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="QuitButton" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="Footer" style="flex-grow: 1; justify-content: flex-end; flex-direction: row;">
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-items: flex-start;" />
+        <ui:VisualElement name="FooterContent" style="flex-grow: 1; height: 77px; flex-direction: column; justify-content: flex-start; align-self: center;">
+            <ui:DropdownField label="Level" name="LevelSelector" index="0" choices="Castle, Highlands, Mountains, Sandbox" />
+            <ui:SliderInt label="Starting Round" high-value="50" name="StartingRound" show-input-field="true" inverted="false" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1;" />
+    </ui:VisualElement>
+    <ui:Label tabindex="-1" text="Version xxx" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Version" />
+</ui:UXML>
