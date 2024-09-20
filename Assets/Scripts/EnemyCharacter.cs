@@ -8,20 +8,21 @@ using System.Threading.Tasks;
 
 public class EnemyCharacter : MonoBehaviour, Entity
 {
-    private Vector3 _direction;
     [SerializeField] private float speed = 1f;
     [SerializeField] private float damage = 20f;
-    private int _damageTimeoutTime = 500;
+    [SerializeField] public Material flashMaterial;
+    [SerializeField] private int DamageTimeoutTime = 500; // ms
+    [SerializeField] private AudioClip DeathSound;
+    private Vector3 _direction;
     private bool _damageTimeout = false;
     private PlayerCharacter _player;
     private CharacterController _controller;
     private Animator _animator;
-    [SerializeField] public Material flashMaterial; 
+    private AudioSource _audioSource;
     private Material originalMaterial;
     private Renderer _renderer;
-
-    private Vector3 _velocity; // Store the current velocity including gravity
-    private float _gravity = -15f; // Gravity value, adjust as needed
+    private Vector3 _velocity; // current velocity including gravity
+    private float _gravity = -15f;
     private float _groundCheckDistance = 0.6f;
 
     private void Start()
@@ -29,13 +30,17 @@ public class EnemyCharacter : MonoBehaviour, Entity
         _player = FindObjectOfType<PlayerCharacter>();
         _controller = GetComponent<CharacterController>();
         _animator = GetComponentInChildren<Animator>();
-        if (_controller == null) throw new MissingComponentException("Missing main component in EnemyCharacter!");
     }
 
     private void Awake()
     {
         _renderer = GetComponentInChildren<Renderer>();
         originalMaterial = _renderer.material;
+        _audioSource = GetComponent<AudioSource>();
+        if (_audioSource != null)
+        {
+            _audioSource.PlayOneShot(_audioSource.clip);
+        }
     }
     private void FixedUpdate()
     {
@@ -66,7 +71,17 @@ public class EnemyCharacter : MonoBehaviour, Entity
 
     public void Die()
     {
-        Destroy(this.gameObject, 0f);
+        if (_audioSource != null && DeathSound != null)
+        {
+            _audioSource.PlayOneShot(DeathSound);
+            foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>()) { mesh.enabled = false; }
+            this.enabled = false;
+            Destroy(this.gameObject, 1f);
+        } else
+        {
+            Destroy(this.gameObject);
+        }
+
     }
 
     public void TriggerFlash(float seconds)
@@ -102,7 +117,7 @@ public class EnemyCharacter : MonoBehaviour, Entity
         {
             player.GetComponent<Creature>().ApplyDamage(damage);
             _damageTimeout = true;
-            Task.Delay(_damageTimeoutTime).ContinueWith((_) => _damageTimeout = false);
+            Task.Delay(DamageTimeoutTime).ContinueWith((_) => _damageTimeout = false);
         }
     }
 }

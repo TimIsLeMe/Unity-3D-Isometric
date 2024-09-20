@@ -84,8 +84,7 @@ public class Bullet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rigidbody.velocity = transform.forward * _speed; // + initialPlayerVelocity; // player velocity is (gradually less) applied for 10 ticks
-        // if (initialPlayerVelocity.magnitude > 0.1f) initialPlayerVelocity -= initialPlayerVelocity / 10;
+        _rigidbody.velocity = transform.forward * _speed;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -99,12 +98,12 @@ public class Bullet : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-        } else if (other.gameObject.GetComponent<Creature>() != null)
-        {
-
-        } else
+        } else if (creature == null) // other is not a creature
         {
             Destroy(gameObject);
+        } else
+        {
+            // INFO: other/creature is the player
         }
     }
 }

@@ -1159,6 +1159,10 @@ PrefabInstance:
       propertyPath: timeToSpawn
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 6071017189502858710, guid: 9d1f7335488e8f14ab9b2014ba9ccd2d, type: 3}
+      propertyPath: enemies.Array.data[0]
+      value: 
+      objectReference: {fileID: 8467145681380576481, guid: dbcc7e197bc701444bb74d019e58ebe1, type: 3}
     - target: {fileID: 8561646958921707729, guid: 9d1f7335488e8f14ab9b2014ba9ccd2d, type: 3}
       propertyPath: m_Name
       value: EnemySpawnpoint

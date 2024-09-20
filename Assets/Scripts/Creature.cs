@@ -10,18 +10,22 @@ public class Creature : MonoBehaviour
     private Entity _entity;
     private float _hitPoints;
     private bool _invulnerable = false;
+    private bool _dead = false;
     // Start is called before the first frame update
     void Start()
     {
         _hitPoints = maxHitPoints;
         _entity = GetComponent<Entity>(); // enforces the need of Entity at same level as Creature
+        if (_entity == null) throw new MissingComponentException("Creature must have an Entity Component on the same level!");
     }
 
     private void FixedUpdate()
     {
+        if(_dead) return;
         if (_hitPoints <= 0)
         {
             _entity.Die();
+            _dead = true;
         }
     }
 
