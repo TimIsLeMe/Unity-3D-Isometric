@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Button text="Exit to Main Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MainMenu" focusable="false" style="align-self: flex-start; background-color: rgba(188, 188, 188, 0.73); border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; width: 150px;" />
+    <ui:Button text="Unpause" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Unpause" focusable="false" style="align-self: flex-start; background-color: rgba(188, 188, 188, 0.73); border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; width: 150px;" />
+    <ui:VisualElement style="flex-grow: 1; align-items: stretch; justify-content: center;">
+        <ui:Label tabindex="-1" text="Paused" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Paused" style="font-size: 200%; -unity-text-align: middle-center; color: rgba(224, 224, 224, 0.41);" />
+    </ui:VisualElement>
+</ui:UXML>

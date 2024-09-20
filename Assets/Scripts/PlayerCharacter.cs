@@ -29,6 +29,13 @@ public class PlayerCharacter : MonoBehaviour, Entity
     private Vector3 _velocity; // Store the current velocity including gravity
     [SerializeField] private float _gravity = -15f; // Gravity value, adjust as needed
     private float _groundCheckDistance = 0.6f;
+    private bool _isInvulnerable;
+    private float _invulnerabilityTimer;
+    public Material invulnerabilityMaterial;
+
+    private bool _hasRapidFire;
+    private float _rapidFireTimer;
+    public Material rapidFireMaterial; 
     
     
     private void Start()
@@ -49,6 +56,34 @@ public class PlayerCharacter : MonoBehaviour, Entity
         HandleMovement();
         CheckExpirience();
     }
+    
+    private void Update()
+    {
+        
+        if (_hasRapidFire)
+        {
+            _renderer.material = rapidFireMaterial;
+            _rapidFireTimer -= Time.deltaTime;
+            if (_rapidFireTimer <= 0f)
+            {
+                _hasRapidFire = false;
+                _renderer.material = originalMaterial;
+
+            }
+        }
+        
+        if (_isInvulnerable)
+        {
+            _renderer.material = invulnerabilityMaterial;
+            _invulnerabilityTimer -= Time.deltaTime;
+            if (_invulnerabilityTimer <= 0f)
+            {
+                _isInvulnerable = false;
+                _renderer.material = originalMaterial;
+
+            }
+        }
+    }
 
     private void CheckExpirience()
     {
@@ -58,6 +93,24 @@ public class PlayerCharacter : MonoBehaviour, Entity
             _xpLevel++;
             GetBoon();
         }
+    }
+
+    public void GrantInvulnerability(float duration)
+    {
+        _isInvulnerable = true;
+        _invulnerabilityTimer = duration;
+        
+        Debug.Log("invulnerabilty granted for " + duration +" seconds");
+    }
+    
+    
+    
+    public void GrantRapidFire(float duration)
+    {
+        _hasRapidFire = true;
+        _rapidFireTimer = duration;
+        
+        Debug.Log("RapidFire granted for " + duration +" seconds");
     }
 
     public void GetBoon()
@@ -137,6 +190,10 @@ public class PlayerCharacter : MonoBehaviour, Entity
     {
         Quaternion direction = Quaternion.LookRotation(transform.forward);
         _currentBulletEffect.AdditionalBulletCount = 1;
+        if (_hasRapidFire)
+        {
+            _currentBulletEffect.AdditionalBulletCount = 7;
+        }
         Bullet bullet = Instantiate(_bullet, transform.position + direction * _bulletOffset, direction);
         bullet.SetBulletEffect(_currentBulletEffect);
         bullet.InitEffects(gameObject);

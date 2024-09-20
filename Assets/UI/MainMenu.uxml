@@ -1,0 +1,22 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Label tabindex="-1" text="Monsters &amp; Mages" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" enable-rich-text="false" style="align-self: center; font-size: 32px; height: 60px; -unity-font: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&amp;guid=c077112a4caf46246a429238ea54b190&amp;type=3#NotInter-Regular&quot;); -unity-font-style: bold; align-items: center; justify-content: flex-start; -unity-text-align: lower-center; -unity-text-outline-width: 1.5px; color: rgb(255, 255, 255); -unity-text-outline-color: rgb(0, 0, 0); margin-bottom: 0;" />
+    <ui:Label tabindex="-1" text="(with guns)" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" enable-rich-text="false" style="align-self: center; font-size: 18px; height: 44px; -unity-font: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&amp;guid=c077112a4caf46246a429238ea54b190&amp;type=3#NotInter-Regular&quot;); -unity-font-style: italic; align-items: center; justify-content: flex-start; -unity-text-align: upper-center; -unity-text-outline-width: 0.5px; color: rgb(255, 255, 255); -unity-text-outline-color: rgb(0, 0, 0); margin-top: 0; padding-top: 0;" />
+    <ui:VisualElement name="Center" style="flex-grow: 1; flex-direction: row; justify-content: space-around; align-self: center;">
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-items: flex-start;" />
+        <ui:VisualElement name="Content" style="flex-grow: 1; height: 79px;">
+            <ui:Button text="Start" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StartButton" style="border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;" />
+            <ui:Button text="Quit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="QuitButton" style="border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="Footer" style="flex-grow: 1; justify-content: flex-end; flex-direction: row; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-left-color: rgba(178, 178, 178, 0); border-right-color: rgba(178, 178, 178, 0); border-top-color: rgba(178, 178, 178, 0); border-bottom-color: rgba(178, 178, 178, 0); border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0;">
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-items: flex-start;" />
+        <ui:VisualElement name="FooterContent" style="flex-grow: 1; height: 150px; flex-direction: column; justify-content: center; align-self: center; background-color: rgba(188, 188, 188, 0.39); align-items: stretch; border-left-color: rgb(126, 126, 126); border-right-color: rgb(126, 126, 126); border-top-color: rgb(126, 126, 126); border-bottom-color: rgb(126, 126, 126); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;">
+            <ui:DropdownField label="Level" name="LevelSelector" index="0" choices="Castle, Highlands, Mountains, Sandbox" />
+            <ui:SliderInt label="Starting Round" high-value="50" name="StartingRound" show-input-field="true" inverted="false" />
+            <ui:SliderInt label="Amount of Rounds" high-value="50" name="MaximumRounds" show-input-field="true" inverted="false" style="border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1;" />
+    </ui:VisualElement>
+    <ui:Label tabindex="-1" text="Version xxx" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Version" />
+</ui:UXML>
