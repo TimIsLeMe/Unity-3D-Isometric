@@ -35,14 +35,17 @@ public class PlayerCharacter : MonoBehaviour, Entity
 
     private bool _hasRapidFire;
     private float _rapidFireTimer;
-    public Material rapidFireMaterial; 
-    
+    public Material rapidFireMaterial;
+
+    private Camera _camera;
+    private Vector3 _movement;
     
     private void Start()
     {
         _currentBulletEffect = new BulletEffect();
         _controller = GetComponent<CharacterController>();
         _animator = GetComponentInChildren<Animator>();
+        _camera = Camera.main;
         if (_controller == null) throw new MissingComponentException("Missing main component in PlayerCharacter!");
     }
 
@@ -80,7 +83,6 @@ public class PlayerCharacter : MonoBehaviour, Entity
             {
                 _isInvulnerable = false;
                 _renderer.material = originalMaterial;
-
             }
         }
     }
@@ -122,34 +124,37 @@ public class PlayerCharacter : MonoBehaviour, Entity
     public void HandleMovement()
     {
 
-            bool isGrounded = Physics.CheckSphere(transform.position + Vector3.down * _groundCheckDistance, _groundCheckDistance, LayerMask.GetMask("Ground"));
+        bool isGrounded = Physics.CheckSphere(transform.position + Vector3.down * _groundCheckDistance, _groundCheckDistance, LayerMask.GetMask("Ground"));
 
             
-            if (isGrounded)
-            {
-                _velocity.y = 0;
-            }
-            else
-            {
-                _velocity.y += _gravity * Time.deltaTime;
-            }
+        if (isGrounded)
+        {
+            _velocity.y = 0;
+        }
+        else
+        {
+            _velocity.y += _gravity * Time.deltaTime;
+        }
             
-            _controller.Move(new Vector3(speed * _direction.x, _velocity.y, speed * _direction.y) * Time.deltaTime);
-            _animator.SetFloat("WalkSpeed", GetSpeed());
 
-            if (_lockedRotation && _animator.GetBool("DoneShooting"))
-            {
-                _lockedRotation = false;
-                _animator.SetBool("DoneShooting", false);
-            }
+        if (_lockedRotation && _animator.GetBool("DoneShooting"))
+        {
+            _lockedRotation = false;
+            _animator.SetBool("DoneShooting", false);
+        }
 
-            if (!_lockedRotation)
-            {
-                Vector3 mousPos = GetRelativeMousePosition();
-                Vector3 direction3D = (mousPos - transform.position).normalized;
-                Vector3 lookDirection = Vector3.Scale(direction3D, new Vector3(1, 0, 1)); // Use X and Z for rotation
-                _controller.transform.rotation = Quaternion.LookRotation(lookDirection);
-            }
+        if (!_lockedRotation)
+        {
+            Vector3 mousPos = GetRelativeMousePosition();
+            Vector3 direction3D = (mousPos - transform.position).normalized;
+            Vector3 lookDirection = Vector3.Scale(direction3D, new Vector3(1, 0, 1)); // Use X and Z for rotation
+            _controller.transform.rotation = Quaternion.LookRotation(lookDirection);
+        }
+        Quaternion camRotation = _camera.transform.rotation.normalized;
+        _movement = camRotation * new Vector3(speed * _direction.x, _velocity.y, speed * _direction.y) * Time.deltaTime;
+        _movement.y = _velocity.y;
+        _controller.Move(_movement);
+        _animator.SetFloat("WalkSpeed", GetSpeed());
     }
     
     private void OnDrawGizmos()
