@@ -94,8 +94,6 @@ public class Bullet : MonoBehaviour
         if (creature != null && creature.GetComponent<PlayerCharacter>() == null)
         {
             if (_playerParent != null && creature.WillDie(_damage)) _playerParent.Experience += creature.ExpirienceDrop; // xp gain
-            Debug.Log("damage: " + _damage);
-            Debug.Log(baseDamage + "; " + _effect.DamageModifier);
             creature.ApplyDamage(_damage);
             if (--_collisionMaxCount <= 0)
             {

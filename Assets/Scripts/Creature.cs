@@ -9,6 +9,7 @@ public class Creature : MonoBehaviour
     public float ExpirienceDrop { get { return expirienceDrop; } }
     private Entity _entity;
     private float _hitPoints;
+    private bool _invulnerable = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +27,7 @@ public class Creature : MonoBehaviour
 
     public void ApplyDamage(float damage)
     {
+        if (_invulnerable) return;
         if(_hitPoints - damage > 0)
         {
             _hitPoints -= damage;
@@ -38,7 +40,12 @@ public class Creature : MonoBehaviour
     
     public bool WillDie(float damage)
     {
-        return _hitPoints - damage <= 0;
+        return _hitPoints - damage <= 0 && !_invulnerable;
+    }
+
+    public void SetInvulnerable(bool inv)
+    {
+        _invulnerable = inv;
     }
 
 }

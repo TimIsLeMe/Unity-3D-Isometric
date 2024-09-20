@@ -24,7 +24,7 @@ public class BulletEffect
         be.Scale = be1.Scale + be2.Scale - new Vector3(1, 1, 1);
         be.DamageModifier = be1.DamageModifier + be2.DamageModifier - 1f;
         be.SpeeModifier = be1.SpeeModifier + be2.SpeeModifier - 1f;
-        be.AdditionalBulletCount = be1.AdditionalCollisionMaxCount + be2.AdditionalCollisionMaxCount;
+        be.AdditionalCollisionMaxCount = be1.AdditionalCollisionMaxCount + be2.AdditionalCollisionMaxCount;
         be.AdditionalBulletCount = be1.AdditionalBulletCount + be2.AdditionalBulletCount;
         return be;
     }

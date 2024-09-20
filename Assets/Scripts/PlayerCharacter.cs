@@ -34,18 +34,27 @@ public class PlayerCharacter : MonoBehaviour, Entity
     public Material invulnerabilityMaterial;
 
     private bool _hasRapidFire;
+    private const float RapidFireVlaue = 0.5f;
     private float _rapidFireTimer;
     public Material rapidFireMaterial;
 
     private Camera _camera;
     private Vector3 _movement;
-    
+
+    private Creature _creature;
+
+    private float _baseFirerate = 1f;
+    private float _firerateModifier = 1f;
+    private int _originalBulletCount = -1;
+
     private void Start()
     {
         _currentBulletEffect = new BulletEffect();
         _controller = GetComponent<CharacterController>();
         _animator = GetComponentInChildren<Animator>();
+        _animator.SetFloat("Firerate", _baseFirerate * _firerateModifier);
         _camera = Camera.main;
+        _creature = GetComponentInChildren<Creature>();
         if (_controller == null) throw new MissingComponentException("Missing main component in PlayerCharacter!");
     }
 
@@ -70,8 +79,8 @@ public class PlayerCharacter : MonoBehaviour, Entity
             if (_rapidFireTimer <= 0f)
             {
                 _hasRapidFire = false;
+                _animator.SetFloat("Firerate", _baseFirerate * _firerateModifier);
                 _renderer.material = originalMaterial;
-
             }
         }
         
@@ -79,9 +88,11 @@ public class PlayerCharacter : MonoBehaviour, Entity
         {
             _renderer.material = invulnerabilityMaterial;
             _invulnerabilityTimer -= Time.deltaTime;
+
             if (_invulnerabilityTimer <= 0f)
             {
                 _isInvulnerable = false;
+                if(_creature) _creature.SetInvulnerable(_isInvulnerable);
                 _renderer.material = originalMaterial;
             }
         }
@@ -101,7 +112,7 @@ public class PlayerCharacter : MonoBehaviour, Entity
     {
         _isInvulnerable = true;
         _invulnerabilityTimer = duration;
-        
+        if (_creature != null) _creature.SetInvulnerable(_isInvulnerable);
         Debug.Log("invulnerabilty granted for " + duration +" seconds");
     }
     
@@ -111,7 +122,7 @@ public class PlayerCharacter : MonoBehaviour, Entity
     {
         _hasRapidFire = true;
         _rapidFireTimer = duration;
-        
+        _animator.SetFloat("Firerate", (_baseFirerate + RapidFireVlaue) * _firerateModifier);
         Debug.Log("RapidFire granted for " + duration +" seconds");
     }
 
@@ -188,17 +199,25 @@ public class PlayerCharacter : MonoBehaviour, Entity
         _animator.SetBool("Attacking", true);
         _lockedRotation = true;
         SpawnBullet();
-
     }
 
     private void SpawnBullet()
     {
         Quaternion direction = Quaternion.LookRotation(transform.forward);
-        _currentBulletEffect.AdditionalBulletCount = 1;
-        if (_hasRapidFire)
-        {
-            _currentBulletEffect.AdditionalBulletCount = 7;
-        }
+        // way too messy maybe we just omit?
+        //if (_hasRapidFire && _originalBulletCount == -1)
+        //{
+        //    _originalBulletCount = _currentBulletEffect.AdditionalBulletCount;
+        //    Debug.Log("old orig bulletcount: " + _originalBulletCount);
+        //    if (_originalBulletCount < 7) _currentBulletEffect.AdditionalBulletCount = 7;
+        //    else _originalBulletCount = -1;
+        //    Debug.Log("old orig bulletcount after if: " + _originalBulletCount);
+        //} else
+        //{
+        //    Debug.Log("ORIG BULLET CNT: " + _originalBulletCount);
+        //    // bulletcount-7 ensures that levelups don't disappear at the end of rapidfire
+        //    _currentBulletEffect.AdditionalBulletCount = _originalBulletCount + (_currentBulletEffect.AdditionalBulletCount - 7); 
+        //}
         Bullet bullet = Instantiate(_bullet, transform.position + direction * _bulletOffset, direction);
         bullet.SetBulletEffect(_currentBulletEffect);
         bullet.InitEffects(gameObject);
