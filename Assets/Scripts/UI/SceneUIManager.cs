@@ -10,7 +10,7 @@ public class SceneUIManager : MonoBehaviour
     private OverlayUILogic _overlayPanel;
     private OverlayPauseUILogic _overlayPausePanel;
     private float _timeScale;
-
+    private AudioSource[] _playingAudios;
     private void Awake()
     {
         _overlayPanel = Instantiate(overlayUILogic, transform);
@@ -29,7 +29,19 @@ public class SceneUIManager : MonoBehaviour
         _timeScale = Time.timeScale;
         Time.timeScale = 0;
         _overlayPanel.gameObject.SetActive(false);
-        _overlayPausePanel.gameObject.SetActive(true); 
+        _overlayPausePanel.gameObject.SetActive(true);
+        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+        _playingAudios = new AudioSource[audioSources.Length];
+        int j = 0;
+        for(int i = 0; i < audioSources.Length; i++)
+        {
+            if (audioSources[i].isPlaying)
+            {
+                _playingAudios[j] = audioSources[i];
+                _playingAudios[j].Pause();
+                j++;
+            }
+        }
     }
     
     private void OnUnpauseButtonPressed(object sender, EventArgs e)
@@ -38,8 +50,13 @@ public class SceneUIManager : MonoBehaviour
         Time.timeScale = 1f;
         _overlayPanel.gameObject.SetActive(true);
         _overlayPausePanel.gameObject.SetActive(false);
-
-
+      
+        foreach(AudioSource audioSource in _playingAudios)
+        {
+            if (audioSource == null) break;
+            audioSource.UnPause();
+        }
+        _playingAudios = null;
     }
     
 }
