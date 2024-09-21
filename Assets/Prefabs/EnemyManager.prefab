@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8561646958921707729
+--- !u!1 &7505647929933379049
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1995719954964119894}
-  - component: {fileID: 4981730526627804595}
+  - component: {fileID: 7280685157389599591}
+  - component: {fileID: 5546364151238864068}
   m_Layer: 0
-  m_Name: EnemySpawnpoint
+  m_Name: EnemyManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1995719954964119894
+--- !u!4 &7280685157389599591
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8561646958921707729}
+  m_GameObject: {fileID: 7505647929933379049}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.8, y: 1.2, z: 42.7}
+  m_LocalPosition: {x: 2.8902063, y: 60.29718, z: 11.804811}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4981730526627804595
+--- !u!114 &5546364151238864068
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8561646958921707729}
+  m_GameObject: {fileID: 7505647929933379049}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da1a9504d48e4db4db44bf710b5d25d6, type: 3}
+  m_Script: {fileID: 11500000, guid: 23cdc6428b8a2cd4985ef33656fb116e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemies:
+  - {fileID: 5049775640166372609, guid: 1ba626df8ab0d85409e69e933a06f5ce, type: 3}
+  - {fileID: 8467145681380576481, guid: dbcc7e197bc701444bb74d019e58ebe1, type: 3}
+  enemieAmountMod: 0100000003000000
+  upperSpawnBound: 2
   difficultyIncrease: 1.25
-  spawnDelay: 150
+  timeToSpawn: 15
+  spawnCountdown: 0
+  startingWave: 1
+  spawnpoints: []
