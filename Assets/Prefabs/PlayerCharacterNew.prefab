@@ -236,7 +236,8 @@ MonoBehaviour:
   flashMaterial: {fileID: 2100000, guid: 4c78e288e0385494cb14da5169adc8de, type: 2}
   expirienceNeeded: 100
   _gravity: -15
-  invulnerabilityColor: {r: 0, g: 0, b: 0, a: 0}
+  invulnerabilityMaterial: {fileID: 2100000, guid: cba7c8ace82610c4e9d952bc6ccee325, type: 2}
+  rapidFireMaterial: {fileID: 2100000, guid: 8542cfd4c466ccc4d956aa10f3b9377d, type: 2}
 --- !u!114 &414014777901909902
 MonoBehaviour:
   m_ObjectHideFlags: 0
