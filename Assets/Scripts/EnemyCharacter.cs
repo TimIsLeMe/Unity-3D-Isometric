@@ -75,6 +75,7 @@ public class EnemyCharacter : MonoBehaviour, Entity
         {
             _audioSource.PlayOneShot(DeathSound);
             foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>()) { mesh.enabled = false; }
+            foreach (Collider col in GetComponents<Collider>()) { col.enabled = false; }
             this.enabled = false;
             Destroy(this.gameObject, 1f);
         } else
