@@ -1,8 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class RapidFirePickUp : MonoBehaviour

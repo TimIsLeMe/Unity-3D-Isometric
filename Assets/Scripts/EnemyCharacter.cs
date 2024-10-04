@@ -1,9 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using System;
-using TreeEditor;
 using System.Threading.Tasks;
 
 public class EnemyCharacter : MonoBehaviour, Entity
